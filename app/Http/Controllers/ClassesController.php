@@ -34,7 +34,6 @@ class ClassesController extends Controller
         $class_placeholder = Classes::orderBy('created_at', 'desc')->first();
         $lastItem_class_name = ucwords($class_placeholder->name);
 
-        dump($lastItem_class_name);
         
 
         switch ($lastItem_class_name) {

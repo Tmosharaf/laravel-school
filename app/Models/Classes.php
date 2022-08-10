@@ -24,4 +24,8 @@ class Classes extends Model
         
         return $this->hasMany(Attendance::class, 'class_name', 'name');
     }
+
+    public function teacher(){
+        return $this->hasOne(Teacher::class, 'class_teacher', 'name');
+    }
 }

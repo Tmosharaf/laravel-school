@@ -1,6 +1,10 @@
 <?php
 
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClassesController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -14,10 +18,22 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
+Route::middleware('auth')->group(function(){
+    
+    
+    Route::get('classes/{class}/attendance', [ClassesController::class, 'attendance'])->name('classes.attendance');
+    Route::resource('classes', ClassesController::class);
+    Route::resource('student', StudentController::class);
+    Route::resource('attendance', AttendanceController::class);
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+
+
 
 require __DIR__.'/auth.php';

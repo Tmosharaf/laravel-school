@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
@@ -49,7 +51,7 @@ class TeacherController extends Controller
             'education' => 'string|max:255',
             'experience' => 'string|max:255',
             'description' => 'string|max:255',
-            'class_teacher' => 'required|string|max:255|unique:teachers,class_teacher|exists:classes,name', 
+            'class_teacher' => 'required|string|max:255|unique:teachers,class_teacher|exists:classes,name',
         ]);
 
         Teacher::create([
@@ -85,7 +87,10 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        //
+        return view('backend.teacher.edit', [
+            'teacher' => $teacher,
+            'classes' => Classes::select('id', 'name')->get(),
+        ]);
     }
 
     /**
@@ -97,7 +102,33 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
-        //
+        if(!$request->has('old_password')){
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'address' => 'required|string|max:255',
+                'education' => 'string|max:255',
+                'experience' => 'string|max:255',
+                'description' => 'string|max:255',
+                'class_teacher' => 'required|string|max:255|exists:classes,name',
+            ]);
+            dd($validated);
+            $teacher->update($validated);
+            return redirect()->route('teacher.index')->with('message', "Teacher Updated Successfully");
+        }else{
+            $validated = $request->validate([
+                'old_password' => ['required', 
+                    function($attribute, $value, $fail) use($teacher){
+                        if (!Hash::check($value, $teacher->password)) {
+                            $fail('Old Password didn\'t match');
+                        }
+                    }],
+                'password'  => ['required', 'confirmed', 'min:6'],
+            ]);
+
+            $teacher->update($validated);
+            return redirect()->route('teacher.index')->with('message', "Teacher Password Updated Successfully");
+        }
     }
 
     /**

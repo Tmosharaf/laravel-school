@@ -156,7 +156,7 @@
                         class teacher
                     </span>
                     <select class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        name="class_teacher">
+                        name="class_teacher" id="class_teacher">
                         <option value="">Select Class Teacher</option>
                         @foreach ($classes as $id => $class)
                             <option value="{{ $class }}">{{ $class }}</option>
@@ -199,4 +199,15 @@
 
 
     </div>
+    @section('script')
+        <script>
+            $(document).ready(function() {
+                $('#class_teacher').select2({
+                    placeholder: 'Select a Class',
+                    // theme: "classic"
+
+                });
+            });
+        </script>
+    @endsection
 </x-app-layout>

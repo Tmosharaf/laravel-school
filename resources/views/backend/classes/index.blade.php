@@ -31,10 +31,10 @@
                                 {{ $class->name }}
                             </a>
                             <p class="text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-gray-200">
-                                <a href="">{{ $class->students->count() }} Students</a>
+                                <a href="{{ route('classes.students', $class) }}">{{ $class->students->count() }} Students</a>
                             </p>
                             <p class="mt-2 block text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-gray-200"> 
-                                <a href="">Routine</a>
+                                <a href="{{ route('classes.routines', $class) }}">Routine</a>
                             </p>
                         </div>
                     </div>

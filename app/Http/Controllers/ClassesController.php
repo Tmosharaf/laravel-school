@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
-use App\Models\Classes;
-use App\Models\Student;
-use Illuminate\Http\Request;
 use Stringable;
+use App\Models\Classes;
+use App\Models\Routine;
+use App\Models\Student;
+use App\Models\Attendance;
+use Illuminate\Http\Request;
 
 class ClassesController extends Controller
 {
@@ -19,8 +20,8 @@ class ClassesController extends Controller
     {
 
         $classes = Classes::with('students')
-                    ->orderBy('id', 'asc')
-                    ->paginate(12);
+            ->orderBy('id', 'asc')
+            ->paginate(12);
         return view('backend.classes.index', compact('classes'));
     }
 
@@ -34,37 +35,37 @@ class ClassesController extends Controller
         $class_placeholder = Classes::orderBy('created_at', 'desc')->first();
         $lastItem_class_name = ucwords($class_placeholder->name);
 
-        
+
 
         switch ($lastItem_class_name) {
             case 'one':
                 $placeholder_item = 'Two';
                 break;
-            
+
             case 'Two':
                 $placeholder_item = 'Three';
                 break;
-            
+
             case 'Three':
                 $placeholder_item = 'Four';
                 break;
-            
+
             case 'Four':
                 $placeholder_item = 'Five';
                 break;
-            
+
             case 'Five':
                 $placeholder_item = 'Six';
                 break;
-            
+
             case 'Six':
                 $placeholder_item = 'Seven';
                 break;
-            
+
             case 'Seven':
                 $placeholder_item = 'Eight';
                 break;
-                
+
             case 'Eight':
                 $placeholder_item = 'Nine';
                 break;
@@ -72,7 +73,7 @@ class ClassesController extends Controller
             case 'Nine':
                 $placeholder_item = 'Ten';
                 break;
-            
+
             case 'Ten':
                 $placeholder_item = 'Ten';
                 break;
@@ -84,8 +85,8 @@ class ClassesController extends Controller
             case 'Twelve':
                 $placeholder_item = 'Thirteen';
                 break;
-           
-            
+
+
             default:
                 $placeholder_item = 'One';
                 break;
@@ -121,22 +122,23 @@ class ClassesController extends Controller
     {
         $class = Classes::where('name', $className)->first();
 
-        $present = Attendance::where('date', date('d-m-Y'))
-                    ->where('class_name', $className)
-                    ->where('status', 'present')
-                    ->count();
-
         $students = Student::where('classes_id', $class->id)
-                    ->with([
-                        'classes' => function ($query) {
-                            $query->select('id', 'name');
-                        },
-                        'attendances' => function ($query) {
-                            $query->where('date', date('d-m-Y'))->select('id','student_roll', 'status', 'created_at')-> latest()->get();
-                        }
-                    ])
-                    ->paginate(50);
-                    
+            ->with([
+                'classes' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'attendances' => function ($query) {
+                    $query->where('date', date('d-m-Y'))->select('id', 'student_roll', 'status', 'created_at')->latest()->get();
+                }
+            ])
+            ->paginate(50);
+
+
+        $present = Attendance::where('date', date('d-m-Y'))
+            ->where('class_name', $className)
+            ->where('status', 'present')
+            ->count();
+
         $absent = $students->count() - $present;
 
         return view('backend.classes.show', compact('class', 'students', 'present', 'absent'));
@@ -192,5 +194,21 @@ class ClassesController extends Controller
         //             ->orderBy('roll', 'asc')
         //             ->with('classes')->paginate(30);
         // return view('backend.classes.attendance', compact('class', 'students'));
+    }
+
+    public function students(Classes $class)
+    {
+        $students = Student::with('classes')->where('classes_id', $class->id)->paginate();
+
+        return view('backend.classes.students', compact('students', 'class'));
+    }
+
+    public function routines(Classes $class)
+    {
+        $routines = Routine::where('classes_id', $class->id)
+            ->with('subject', 'teacher')
+            ->orderBy('time', 'ASC')
+            ->get();
+        return view('backend.classes.routines', compact('routines', 'class'));
     }
 }

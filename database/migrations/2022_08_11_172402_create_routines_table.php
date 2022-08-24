@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('routines', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('classes_id')->constrained();
+            $table->string('day');
+            $table->string('time');
+            $table->foreignId('subject_id')->constrained();
+            $table->foreignId('teacher_id')->constrained();
             $table->timestamps();
         });
     }

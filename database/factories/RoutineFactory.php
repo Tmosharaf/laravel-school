@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Classes;
+use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,12 @@ class RoutineFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'classes_id' => Classes::all()->random()->id,
+            'day' => $this->faker->dayOfWeek,
+            'time'  => $this->faker->time('H:i'),
+            'subject_id' => Subject::all()->random()->id,
+            'teacher_id' => Teacher::all()->random()->id,
+
         ];
     }
 }

@@ -57,13 +57,41 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach($class->todayRoutine as $routine)
                             <tr class="border-t border-b">
-                                <td>{{ $routine->subject->subject_name }}</td>
-                                <td>{{ $routine->teacher->name }}</td>
-                                <td>{{ $routine->time }}</td>
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
                             </tr>
-                            @endforeach
+                            <tr class="border-t border-b">
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
+                            </tr>
+                            <tr class="border-t border-b">
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
+                            </tr>
+                            <tr class="border-t border-b">
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
+                            </tr>
+                            <tr class="border-t border-b">
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
+                            </tr>
+                            <tr class="border-t border-b">
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
+                            </tr>
+                            <tr class="border-t border-b">
+                                <td>Islamic History</td>
+                                <td>Md Noman</td>
+                                <td>11.00</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\RoutineController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -20,20 +21,22 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->prefix('admin')->group(function(){
     
-    
+    Route::get('classes/{class}/routines', [ClassesController::class, 'routines'])->name('classes.routines');
+    Route::get('classes/{class}/students', [ClassesController::class, 'students'])->name('classes.students');
     Route::get('classes/{class}/attendance', [ClassesController::class, 'attendance'])->name('classes.attendance');
     Route::resource('classes', ClassesController::class);
     Route::resource('student', StudentController::class);
     Route::resource('attendance', AttendanceController::class);
     Route::resource('teacher', TeacherController::class);
     Route::resource('routine', RoutineController::class);
+    Route::resource('subject', SubjectController::class);
+});
 
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
-});
+    })->middleware('auth')->name('dashboard');
 
 
 

@@ -9,8 +9,8 @@
 
             <div>
                 <a class="block px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                    href="{{ route('routine.index') }}">
-                    All Class
+                    href="{{ route('routine.create') }}">
+                    Create Routine
                 </a>
             </div>
         </div>
@@ -44,13 +44,13 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    <a href="{{ route('teacher.show', $routine->teacher_id) }}"
+                                    <a href="{{ route('teacher.show', $routine->teacher_id ?? '') }}"
                                         class="px-2 py-1 font-semibold 
                                             leading-tight text-green-700 
                                             bg-green-100 rounded-full 
                                             dark:bg-green-700 
                                             dark:text-green-100">
-                                        {{ $routine->teacher->name }}
+                                        {{ $routine->teacher->name ?? '' }}
                                     </a>
                                 </td>
                                 <td class="px-4 py-3 text-sm break-all">

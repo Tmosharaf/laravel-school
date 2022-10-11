@@ -4,7 +4,7 @@
             Dashboard
         </h2>
         <!-- CTA -->
-        <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+        {{-- <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
             href="https://github.com/estevanmaito/windmill-dashboard">
             <div class="flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -15,7 +15,7 @@
                 <span>Star this project on GitHub</span>
             </div>
             <span>View more &RightArrow;</span>
-        </a>
+        </a> --}}
         <!-- Cards -->
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card -->
@@ -51,7 +51,7 @@
                         Teachers
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        $ 46,760.89
+                        {{ \App\Models\Student::count() }}
                     </p>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                         Classes
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        5
+                        {{ \App\Models\Classes::count() }}
                     </p>
                 </div>
             </div>

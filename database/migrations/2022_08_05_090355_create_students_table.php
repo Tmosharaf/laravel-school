@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('roll');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
-            $table->integer('age')->nullable();
+            $table->string('age')->nullable();
             $table->string('gender')->nullable();
             $table->string('fathers_name')->nullable();
             $table->string('mothers_name')->nullable();

@@ -66,6 +66,10 @@ class TeacherController extends Controller
             'description' => $validated['description'],
             'class_teacher' => $validated['class_teacher'],
         ]);
+
+        flasher('Teacher Created');
+        
+        return redirect()->route('teacher.index');
     }
 
     /**
@@ -76,7 +80,7 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        //
+        return view('backend.teacher.show', compact('teacher'));
     }
 
     /**
@@ -139,6 +143,14 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        try {
+            $teacher->delete();
+            flasher('Teacher Deleted Successfully', 'info');
+        } catch (\Throwable $e) {
+            flasher('Cannot Delete Teacher Profile', 'warning');
+        }
+        
+        
+        return back();
     }
 }

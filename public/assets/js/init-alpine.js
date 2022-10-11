@@ -47,6 +47,10 @@ function data() {
     togglePagesMenu() {
       this.isPagesMenuOpen = !this.isPagesMenuOpen
     },
+    isAdminMenuOpen: false,
+    toggleAdminMenu() {
+      this.isAdminMenuOpen = !this.isAdminMenuOpen
+    },
     // Modal
     isModalOpen: false,
     trapCleanup: null,

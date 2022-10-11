@@ -44,13 +44,13 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    <a href="{{ route('teacher.show', $routine->teacher_id) }}"
+                                    <a href="{{ route('teacher.show', $routine->teacher_id ?? '') }}"
                                         class="px-2 py-1 font-semibold 
                                             leading-tight text-green-700 
                                             bg-green-100 rounded-full 
                                             dark:bg-green-700 
                                             dark:text-green-100">
-                                        {{ $routine->teacher->name }}
+                                        {{ $routine->teacher->name ?? '' }}
                                     </a>
                                 </td>
                                 <td class="px-4 py-3 text-sm break-all">

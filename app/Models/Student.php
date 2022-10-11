@@ -28,6 +28,11 @@ class Student extends Model
         'classes_id',
     ];
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
     public function classes()
     {
         return $this->belongsTo('App\Models\Classes');

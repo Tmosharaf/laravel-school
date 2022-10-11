@@ -51,7 +51,7 @@
                                             bg-green-100 rounded-full 
                                             dark:bg-green-700 
                                             dark:text-green-100">
-                                            {{ $routine->teacher->name }}
+                                            {{ $routine->teacher->name ?? '' }}
                                         </a>
                                     </td>
                                     <td class="px-4 py-3 text-sm break-all">

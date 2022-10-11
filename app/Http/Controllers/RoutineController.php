@@ -57,26 +57,25 @@ class RoutineController extends Controller
             ->orderBy('time', 'ASC')
             ->get();
 
-        //filter by day from Datbase [Day] Column
-        $routines = $routines->map(function ($item) {
-            //item day all are in a string format, so first convert it into an array.
-            $days = str_replace(['"', '[', ']'], '', $item->day);
-            $days = explode(',', $days);
-            //check day column from database with today
-            if (in_array(strtolower(date('l')), $days)) {
-                return $item;
-            }
-        });
+
+        // //filter by day from Datbase [Day] Column
+        // $routines = $routines->map(function ($item) {
+        //     //item day all are in a string format, so first convert it into an array.
+        //     $days = str_replace(['"', '[', ']'], '', $item->day);
+        //     $days = explode(',', $days);
+        //     //check day column from database with today
+        //     if (in_array(strtolower(date('l')), $days)) {
+        //         return $item;
+        //     }
+        // });
+
         $routines =  $routines->filter(); //remove null item from colection
 
         $class = Classes::where('id', $class_id)->first();
         $subjects = Subject::where('classes_id', $class_id)->get();
         $teachers = Teacher::all();
         // dd($routine); 
-        return view(
-            'backend.routine.create',
-            compact('class', 'routines', 'subjects', 'teachers')
-        );
+        return view('backend.routine.create',compact('class', 'routines', 'subjects', 'teachers'));
     }
 
     /**
@@ -121,9 +120,9 @@ class RoutineController extends Controller
         $class = Classes::where('id', $class_id)->first('name');
 
         $routines = Routine::where('classes_id', $class_id)
-        ->with('subject', 'teacher')
-        ->orderBy('time', 'ASC')
-        ->get();
+            ->with('subject', 'teacher')
+            ->orderBy('time', 'ASC')
+            ->get();
         return view('backend.routine.show', compact('routines', 'class'));
     }
 

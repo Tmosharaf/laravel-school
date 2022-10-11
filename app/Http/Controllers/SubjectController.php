@@ -16,9 +16,7 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->has('search'));
-
-        
+       
         if($request->has('search')){
             $subjects = Subject::with('classes')
             ->whereHas('classes', function($query) use($request){
@@ -137,9 +135,18 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        $subject->delete();
         
-        flasher('Subject Deleted Successfully', 'info');
+        try {
+            $subject->delete();
+            flasher('Subject Deleted Successfully', 'info');
+        } catch (\Throwable $th) {
+            if($th->errorInfo[1] == 1451){
+                flasher('Subject Used Somewhere Already', 'warning');        
+            }else{
+                flasher('Cannot Delete.', 'warning');
+            }
+        }
+        
         return redirect()->route('subject.index');
     }
 }

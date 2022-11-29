@@ -46,6 +46,9 @@ class UpcomingEventController extends Controller
 
         UpcomingEvent::create($validated);
 
+        $events = UpcomingEvent::where('date', '>', date('Y-m-d'))->get();
+         session(['upcoming_event_count' => count($events)]);
+
         flasher('Event Created');
 
         return redirect()->route('event.index');
@@ -90,6 +93,10 @@ class UpcomingEventController extends Controller
  
          $event->update($validated);
  
+         
+         $events = UpcomingEvent::where('date', '>', date('Y-m-d'))->get();
+         session(['upcoming_event_count' => count($events)]);
+
          flasher('Event Updated');
  
          return redirect()->route('event.index');
@@ -105,6 +112,15 @@ class UpcomingEventController extends Controller
     {
         $event->delete();
         
+        
+
+        $events = UpcomingEvent::where('date', '>', date('Y-m-d'))->get();
+
+        if(count($events) == 0){
+            session(['upcoming_event_count' => 0]);
+        }
+
+
         flasher('Event Deleted Successfully', 'info');
         
         return back();

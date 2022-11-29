@@ -140,10 +140,6 @@ function activeLink($url)
                             <a class="block px-2 py-1 w-full" href="{{ route('event.index') }}">Event</a>
                         </li>
                         <hr>
-                        <li
-                            class="transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="block px-2 py-1 w-full" href="pages/login.html">Notice</a>
-                        </li>
                         
                     </ul>
                 </template>

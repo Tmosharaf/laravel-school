@@ -41,7 +41,7 @@ class UpcomingEventController extends Controller
         $validated = $request->validate([
            'event_name' =>  ['required', 'string', 'max:40'],
            'description'    =>  ['required', 'string', 'min:3'],
-           'date'   =>  ['required', 'date_format:d-m-Y'], 
+           'date'   =>  ['required', 'date_format:Y-m-d'], 
         ]);
 
         UpcomingEvent::create($validated);
@@ -112,10 +112,11 @@ class UpcomingEventController extends Controller
 
     public function notification()
     {
-        $events = UpcomingEvent::where('date', '>', date('d-m-Y'))->get();
+        $events = UpcomingEvent::where('date', '>', date('Y-m-d'))->get();
+
+
 
         session(['upcoming_event_count' => count($events)]);
-
 
         return view('backend.event.notification', compact('events'));
     }

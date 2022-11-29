@@ -18,6 +18,10 @@ class UpcomingEvent extends Model
         'date'
     ];
 
+    protected $casts = [
+        'date' => 'datetime:Y-m-d',
+    ];
+
     // protected function upcoming(): Attribute
     // {
     //     return Attribute::make(
@@ -30,7 +34,7 @@ class UpcomingEvent extends Model
         return Attribute::make(
             get : function(){
                 if(Carbon::parse($this->date) <  Carbon::today()){
-                    return 'bg-red-50';
+                    return true;
                 }
                 
             }

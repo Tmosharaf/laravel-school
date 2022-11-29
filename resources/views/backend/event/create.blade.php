@@ -72,7 +72,7 @@
                             datepicker-autohide 
                             value="{{ old('date') }}"
                             autocomplete="off"
-                            datepicker-format="dd-mm-yyyy">
+                            datepicker-format="yyyy-mm-dd">
                     </div>
                     {{-- Errors --}}
                     @error('date')

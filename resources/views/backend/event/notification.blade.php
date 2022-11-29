@@ -30,7 +30,7 @@
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         
                         @forelse ($events as $event)
-                            <tr class="{{ $event->isExpired }} text-gray-700 dark:text-gray-400">
+                            <tr class="{{ ($event->isExpired) ? 'bg-red-200' : '' }} text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
                                         <p class="font-medium">{{ $event->event_name }}</p>
@@ -43,7 +43,7 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
-                                        <p class="font-medium">{{ $event->date }}</p>
+                                        <p class="font-medium">{{ $event->date->format('d-M-Y') }}</p>
                                     </div>
                                 </td>
                                 {{-- <td class="px-4 py-3">
